@@ -1,0 +1,14 @@
+.password-container {
+    position: relative;
+}
+#tog {
+    padding-top: 1.5rem;
+    height: 2.4rem;
+    cursor: pointer;
+}
+#terbuka {
+    display: none;
+}
+.tombol-form:hover{
+    box-shadow:3px 3px black;
+}

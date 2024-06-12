@@ -1,0 +1,140 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.dark-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.content {
+    flex: 1 0 auto;
+}
+
+.overlay-produk{
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.isi-card {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: transform 0.8s ease;
+}
+
+.produk:hover .overlay-produk {
+    opacity: 1;
+    transform: translateY(0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.produk:hover .isi-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.produk {
+    transform: translateY(0);
+    transition: box-shadow 0.5s ease, transform 0.8s ease;
+}
+
+.produk:hover {
+    transform: translateY(-10px);
+    box-shadow: 3px 3px 7px black;
+}
+.baris-cart{
+    border: 2px solid black;
+}
+.baris-cart:hover{
+    box-shadow: 4px 1px 6px black;
+}
+.konfirm-rek{
+    box-shadow: 2px 1px 4px black;
+}
+.baris-pesanan{
+    border: 2px solid #fff3cd;
+}
+.baris-pesanan:hover{
+    box-shadow: 4px 4px #fff3cd;
+}
+
+.form-daftar, .gambar-login{
+    animation: move-right 2s forwards;
+}
+.gambar-daftar, .form-login{
+    animation: move-left 2s forwards;
+}
+@keyframes move-right {
+    from {
+        transform: translateX(-50%);
+    }
+    to {
+        transform: translateX(0); /* Sesuaikan posisi ke tengah */
+    }
+}
+@keyframes move-left {
+    from {
+        transform: translateX(50%);
+    }
+    to {
+        transform: translateX(0); /* Sesuaikan posisi ke tengah */
+    }
+}
+
+
+
+.password-container {
+    position: relative;
+}
+#tog {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+#tog2 {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+#terbuka {
+    display: none;
+}
+#terbuka2 {
+    display: none;
+}
+
+#Footer {
+    flex-shrink: 0;
+}
+a {
+    font-size: 14px;
+    font-weight: 700
+}
+
+.navbar-nav .nav-item .badge {
+    font-size: 0.75em;
+    padding: 0.25em 0.5em;
+    border-radius: 50%;
+    line-height: 1;
+}
+.superNav {
+    font-size: 13px;
+}
+
+.form-control {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+@media screen and (max-width:540px) {
+    .centerOnMobile {
+        text-align: center
+    }
+}
