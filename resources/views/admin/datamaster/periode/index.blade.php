@@ -1,4 +1,5 @@
 @extends('layout.admin.main')
+@section('title', 'AKMALOID | Periode')
 @push('styles')
     <link href="{{ asset('plugins/datatables/datatable.css') }}" rel="stylesheet">
 @endpush

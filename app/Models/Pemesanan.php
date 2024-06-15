@@ -21,4 +21,8 @@ class Pemesanan extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+    public function detailPemesanans()
+    {
+        return $this->hasMany(DetailPemesanan::class, 'order_code', 'order_code');
+    }
 }

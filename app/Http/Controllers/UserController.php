@@ -18,15 +18,17 @@ use App\Models\Paket;
 use App\Models\Pemesanan;
 use App\Models\Penerbit;
 use App\Models\SlideShow;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(UserDataTable $dataTable)
+    public function index(UserDataTable $dataTable,Request $request)
     {
-        return $dataTable->render('admin.usermanagement.index');
+        return $dataTable->with(['role' => $request->input('role')])->render('admin.usermanagement.index');
+        // return $dataTable->render('admin.usermanagement.index');
     }
 
     public function pelanggan()
@@ -73,6 +75,39 @@ class UserController extends Controller
             $gender = 'Perempuan';
         }
         return view('user.profile', compact('data','nickname','gender','isicart'));
+    }
+
+    public function admin(){
+        $paket = Paket::all()->count('id');
+        $user = User::all()->count('id');
+        $totalpemasukan = Pemesanan::where('status_pemesanan','Aktif')->sum('total_biaya');
+        $verifikasi = Pemesanan::where('status_pemesanan','Menunggu Konfirmasi')->count('id');
+
+        $monthlyEarnings = DB::table('pemesanans')
+        ->select(DB::raw('SUM(total_biaya) as total'), DB::raw('MONTH(tanggal_pemesanan) as month'))
+        ->where('status_pemesanan','Aktif')
+        ->groupBy(DB::raw('MONTH(tanggal_pemesanan)'))
+        ->pluck('total', 'month')
+        ->toArray();
+
+        // Inisialisasi array dengan 0 untuk setiap bulan
+        $monthlyEarningsData = array_fill(1, 12, 0);
+        foreach ($monthlyEarnings as $month => $total) {
+            $monthlyEarningsData[$month] = $total;
+        }
+
+        $categories = DB::table('kategori_produks')
+        ->join('pakets', 'kategori_produks.id', '=', 'pakets.kategori_produk_id')
+        ->select('kategori_produks.name', DB::raw('COUNT(pakets.id) as total_menu'))
+        ->groupBy('kategori_produks.name')
+        ->get();
+
+        // Memisahkan data menjadi dua array: satu untuk label dan satu untuk data
+        $labels = $categories->pluck('name')->toArray();
+        $total_menu = $categories->pluck('total_menu')->toArray();
+
+
+        return view('admin.index',compact('labels','total_menu','monthlyEarningsData','paket','user','verifikasi','totalpemasukan'));
     }
 
     /**

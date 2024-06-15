@@ -1,4 +1,5 @@
 @extends('layout.admin.main')
+@section('title', 'AKMALOID | User Management')
 @push('styles')
     <link href="{{ asset('plugins/datatables/datatable.css') }}" rel="stylesheet">
 @endpush
@@ -11,13 +12,31 @@
         </ol>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 fw-bold">User Management</h1>
-            <a href="{{ route('tambah.user') }}" class="btn btn-success btn-icon-split">
-                <span class="icon text-white-50">
-                    <i class="fas fa-plus"></i>
-                </span>
-                <span class="text">Tambah User</span>
-            </a>
+        <h1 class="h3 mb-0 text-gray-800 fw-bold"><strong>User Management</strong></h1>
+
+        <div class="row">
+            <div class="col-md-4">
+                <form action="{{ route('admin.user') }}" method="GET" class="form-inline" id="filterForm">
+                    <div class="form-group">
+                        <select name="role" id="roleFilter" class="form-select">
+                            <option selected>Role</option>
+                            <option value="all">Semua</option>
+                            <option value="pelanggan">Pelanggan</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8 text-end">
+                <a href="{{ route('tambah.user') }}" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-plus"></i>
+                    </span>
+                    <span class="text">Tambah User</span>
+                </a>
+
+            </div>
+        </div>
     </div>
     @if (session()->has('suksestambahuser'))
         <div class="alert alert-success alert-dismissible" role="alert">
@@ -83,6 +102,11 @@
               modal.find('.modal-body #name').text(name)
               modal.find('.modal-body #role').text(role)
             })
+            $(document).ready(function() {
+            $('#roleFilter').change(function() {
+                $('#filterForm').submit();
+            });
+        });
           </script>
     @endpush
 @endsection

@@ -11,6 +11,7 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Illuminate\Http\Request;
 
 class UserDataTable extends DataTable
 {
@@ -19,6 +20,20 @@ class UserDataTable extends DataTable
      *
      * @param QueryBuilder $query Results from query() method.
      */
+
+     protected $role;
+
+    public function __construct(Request $request)
+    {
+        if($request->input('role'))
+        {
+            $this->role = $request->input('role'); // Get role filter from request
+        }
+        $this->role = "all";
+    }
+
+
+
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
@@ -43,7 +58,13 @@ class UserDataTable extends DataTable
      */
     public function query(User $model): QueryBuilder
     {
-        return $model->newQuery();
+        $query = $model->newQuery();
+
+        if ($this->role != "all") {
+            $query->where('role', $this->role);
+        }
+
+        return $query;
     }
 
     /**

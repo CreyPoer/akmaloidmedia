@@ -1,16 +1,21 @@
 <?php
 
 use App\Http\Controllers\DetailPemesananController;
+use App\Http\Controllers\FeedBackController;
 use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaketController;
+use App\Http\Controllers\PembayaranController;
+use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\SlideShowController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProdukController;
+use App\Http\Controllers\WalletController;
 use App\Models\KategoriProduk;
+use App\Models\Pemesanan;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +42,8 @@ Route::get('/kategori-produk/{id}',[ProdukController::class,'kategoriproduk'])->
 Route::get('/penerbit/{id}',[ProdukController::class,'penerbit'])->name('penerbit');
 Route::post('/paket-check', [ProdukController::class, 'caricheck'])->name('check.paket');
 
+Route::post('/guest-feedback',[FeedBackController::class,'store'])->name('guest.feedback');
+
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -54,11 +61,16 @@ Route::group(['middleware' => 'auth'], function(){
         //cart
         Route::post('/addtocart', [DetailPemesananController::class, 'addtocart'])->name('add.to.cart');
         Route::get('/tampilcart/{id}', [DetailPemesananController::class, 'tampilcart'])->name('show.cart');
+        Route::delete('/delete-cart', [DetailPemesananController::class, 'destroy'])->name('delete.cart');
+        Route::post('/pesan-paket', [DetailPemesananController::class, 'store'])->name('pesan.paket');
+        Route::get('/riwayatpesanan/{id}', [DetailPemesananController::class, 'show'])->name('show.riwayatpesanan');
 
+        //feedback
+        Route::post('/user-feedback',[FeedBackController::class,'simpan'])->name('user.feedback');
 
     });
     Route::group(['prefix' => 'admin','middleware' => 'role_admin'],function(){
-        Route::get('/', function () {return view('admin.index');});
+        Route::get('/', [UserController::class,'admin']);
 
         Route::get('/usermanagement',[UserController::class,'index'])->name('admin.user');
         Route::get('/tambah-user',[UserController::class,'create'])->name('tambah.user');
@@ -101,6 +113,24 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/edit-slideshow/{id}',[SlideShowController::class,'edit'])->name('edit.slideshow');
         Route::put('/update-slideshow/{id}',[SlideShowController::class,'update'])->name('update.slideshow');
         Route::delete('/delete-slideshow',[SlideShowController::class,'destroy'])->name('delete.slideshow');
+
+        Route::get('/wallet',[WalletController::class,'index'])->name('admin.wallet');
+        Route::get('/tambah-wallet',[WalletController::class,'create'])->name('tambah.wallet');
+        Route::post('/simpan-wallet',[WalletController::class,'store'])->name('simpan.wallet');
+        Route::get('/edit-wallet/{id}',[WalletController::class,'edit'])->name('edit.wallet');
+        Route::put('/update-wallet/{id}',[WalletController::class,'update'])->name('update.wallet');
+        Route::delete('/delete-wallet',[WalletController::class,'destroy'])->name('delete.wallet');
+
+        Route::get('/pemesanan',[PemesananController::class,'index'])->name('admin.pemesanan');
+        Route::get('/show-pemesanan/{id}',[PemesananController::class,'show'])->name('show.detail.pemesanan');
+
+        Route::get('/validasipembayaran',[PembayaranController::class,'index'])->name('admin.validasipembayaran');
+        Route::post('/validasi-pembayaran',[PembayaranController::class,'validasi'])->name('admin.memvalidasipembayaran');
+
+        Route::get('/pemasukan',[PemesananController::class,'pemasukan'])->name('admin.pemasukan');
+
+        Route::get('/feedback',[FeedBackController::class,'index'])->name('admin.feedback');
+
     });
 });
 
@@ -112,12 +142,12 @@ Route::group(['middleware' => 'auth'], function(){
 //     return view('guest.produk');
 // });
 
-Route::get('/cart', function () {
-    return view('user.cart');
-});
-// Route::get('/riwayatpesanan', function () {
-//     return view('user.riwayatpesanan');
+// Route::get('/cart', function () {
+//     return view('user.cart');
 // });
+Route::get('/riwayatpesanan', function () {
+    return view('user.riwayatpesanan');
+});
 // Route::get('/register', function () {
 //     return view('register');
 // });

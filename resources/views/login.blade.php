@@ -25,15 +25,21 @@
                     <h2 class="fw-bold">SIGN IN</h2>
                     <small>Silahkan masukkan email dan password Anda yang telah terdafarkan</small>
                 </div>
+                @if($errors->has('credentials'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('credentials') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
                 <div class="py-3">
                     <form action="{{ route('autentikasi') }}" method="POST">
                         @csrf
                         <div class="form-floating mb-3 ">
-                            <input type="email" name="email" class="form-control border border-black border-2" id="floatingInput" placeholder="name@example.com">
+                            <input type="email" name="email" class="form-control border border-black border-2" id="floatingInput" placeholder="name@example.com" required>
                             <label for="floatingInput">Email address</label>
                           </div>
                           <div class="form-floating mb-3 password-container">
-                            <input type="password" name="password" class="form-control border border-black border-2" id="floatingPassword" placeholder="Password">
+                            <input type="password" name="password" class="form-control border border-black border-2" id="floatingPassword" placeholder="Password" required>
                             <label for="floatingPassword">Password</label>
                             <span class="password-toggle d-flex align-items-center pt-3" id="tog">
                                 <p id="tertutup"><i class="fas fa-eye-slash"></i></p>

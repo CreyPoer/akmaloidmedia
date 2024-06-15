@@ -36,6 +36,38 @@
     </li>
 
     <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.pemesanan') }}">
+            <i class="fa-solid fa-list-check"></i>
+            <span>Pemesanan</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDataPembayaran"
+            aria-expanded="true" aria-controls="collapseDataPembayaran">
+            <i class="fa-solid fa-comments-dollar"></i>
+            <span>Pembayaran</span>
+        </a>
+        <div id="collapseDataPembayaran" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{ route('admin.validasipembayaran') }}"><i class="fa-solid fa-file-invoice-dollar"></i> Validasi Pembayaran</a>
+                <a class="collapse-item" href="{{ route('admin.wallet') }}"><i class="fa-solid fa-wallet"></i> Wallet</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.pemasukan') }}">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>Laporan Pemasukan</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin.feedback') }}">
+            <i class="fa-solid fa-comments"></i>
+            <span>Feed Back</span></a>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('admin.user') }}">
             <i class="fas fa-fw fa-users-gear"></i>
             <span>User Management</span></a>

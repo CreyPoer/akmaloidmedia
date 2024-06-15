@@ -1,5 +1,5 @@
 @extends('layout.admin.main')
-
+@section('title', 'AKMALOID | User Management')
 @section('konten-admin')
     <div class="row d-flex justify-content-left">
         <ol class="breadcrumb bg-transparent">
@@ -8,7 +8,7 @@
         </ol>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 fw-bold">Edit User Management</h1>
+        <h1 class="h3 mb-0 text-gray-800 fw-bold"><strong>Edit User Management</strong></h1>
     </div>
 
     <div class="card mb-4 bg-warning-subtle border-start border-black border-3">
@@ -83,7 +83,7 @@
                 <div class="row mb-3 fw-bold">
                     <div class="col-md-6 mb-3">
                         <label for="inputAddress" class="form-label">Alamat</label>
-                        <textarea class="form-control" name="alamat" id="inputAddress" rows="3" value="{{ $data->alamat }}"></textarea>
+                        <textarea class="form-control" name="alamat" id="inputAddress" rows="3">{{ $data->alamat }}</textarea>
                         @error('alamat')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

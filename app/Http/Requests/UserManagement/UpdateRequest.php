@@ -19,7 +19,7 @@ class UpdateRequest extends FormRequest
             'no_telepon' => 'required|string|unique:users,no_telepon,'. $userId.'|max:15',
             'alamat' => 'required|string',
             'email' => 'required|string|email|max:255|unique:users,email,' . $userId,
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8',
             'gender' => 'required|in:L,P',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];

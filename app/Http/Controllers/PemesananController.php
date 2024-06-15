@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\LaporanPemasukanDataTable;
+use App\DataTables\PemesananDataTable;
+use App\Models\DetailPemesanan;
 use App\Models\Pemesanan;
+use Egulias\EmailValidator\Result\Reason\DetailedReason;
 use Illuminate\Http\Request;
 
 class PemesananController extends Controller
@@ -10,9 +14,9 @@ class PemesananController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PemesananDataTable $dataTable)
     {
-        //
+        return $dataTable->render('admin.pemesanan.index');
     }
 
     /**
@@ -21,6 +25,12 @@ class PemesananController extends Controller
     public function create()
     {
         //
+    }
+
+
+    public function pemasukan(LaporanPemasukanDataTable $dataTable)
+    {
+        return $dataTable->render('admin.laporan.index');
     }
 
     /**
@@ -34,9 +44,10 @@ class PemesananController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Pemesanan $pemesanan)
+    public function show(string $id)
     {
-        //
+        $detailpemesanan = DetailPemesanan::where('order_code',$id)->get();
+        return view('admin.pemesanan.show',compact('detailpemesanan','id'));
     }
 
     /**

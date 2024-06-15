@@ -1,4 +1,5 @@
 @extends('layout.admin.main')
+@section('title', 'AKMALOID | Penerbit')
 @push('styles')
     <link href="{{ asset('plugins/datatables/datatable.css') }}" rel="stylesheet">
 @endpush
@@ -12,7 +13,7 @@
         </ol>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 fw-bold">Penerbit</h1>
+        <h1 class="h3 mb-0 text-gray-800 fw-bold"><strong>Penerbit</strong></h1>
             <a href="{{ route('tambah.penerbit') }}" class="btn btn-success btn-icon-split">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>

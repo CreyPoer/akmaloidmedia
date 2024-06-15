@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('restrict');
             $table->string('order_code')->unique();
-            $table->date('tanggal_pemesanan');
+            $table->date('tanggal_pemesanan')->nullable();
             $table->integer('total_biaya')->nullable();
-            $table->enum('status_pemesanan',['Aktif','Belum Aktif']);
+            $table->enum('status_pemesanan',['Aktif','Menunggu Konfirmasi','Belum Aktif']);
             $table->timestamps();
         });
     }

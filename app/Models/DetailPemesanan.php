@@ -23,5 +23,9 @@ class DetailPemesanan extends Model
     {
         return $this->belongsTo(Paket::class, 'paket_id', 'id');
     }
+    public function pemesanan()
+    {
+        return $this->belongsTo(Pemesanan::class, 'order_code', 'order_code');
+    }
 
 }

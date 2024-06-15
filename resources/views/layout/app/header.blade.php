@@ -20,6 +20,9 @@
                     <li class="nav-item">
                         <a class="nav-link mx-2 text-uppercase text-black" href="{{ route('produk.all') }}">Products</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link mx-2 text-uppercase text-black" href="{{ route('show.riwayatpesanan',Auth::user()->id) }}">History</a>
+                    </li>
                 @endauth
                 @guest
                     <li class="nav-item">

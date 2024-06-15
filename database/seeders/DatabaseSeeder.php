@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\Penerbit::factory(10)->create();
         \App\Models\Periode::factory(4)->create();
         \App\Models\SlideShow::factory(5)->create();
+        \App\Models\Wallet::factory()->count(5)->create();
 
         $this->call([
             PaketSeeder::class,

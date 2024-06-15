@@ -17,7 +17,7 @@ class PeriodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'periode' => $this->faker->randomElement(['Harian','Mingguan','Setengah Bulan','Bulan']),
+            'periode' => $this->faker->randomElement(['Harian','Mingguan','Setengah Bulanan','Bulanan']),
             'deskripsi' => $this->faker->sentence(),
         ];
     }

@@ -42,53 +42,12 @@
         </button>
     </div>
 </div>
-{{-- <div class="container-fluid p-0" id="Home" style="margin-top: -5rem;">
-    <div id="carouselExampleCaptions" class="carousel slide">
-        <div class="carousel-inner">
-            @foreach ($slideshow as $slide)
-
-            <div class="carousel-item active">
-                <img src="{{ asset($slide->gambar) }}" class="img-fluid w-100 mb-auto" alt="..."
-                    style="height: 46rem">
-                <div class="dark-overlay"></div>
-                <div class="carousel-caption text-start">
-                    <div class="row px-2 container-fluid">
-                        <div class="col-sm-6 align-items-center d-flex">
-                            <div>
-                                <h1>{{ $slide->judul }}</h1>
-                                <h4>{{ $slide->sub_judul }}</h4>
-                                <h6>{{ $slide->deskripsi }}</h6>
-                                <button class="btn btn-primary">
-                                    <h5>{{ $slide->button }}</h5>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 mx-auto">
-                            <img src="{{ asset($slide->icon) }}" class="img-fluid" alt="...">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            @endforeach
-
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <div class="me-auto bg-black px-2 pb-3 pt-3 rounded-end-circle opacity-30">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </div>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <div class="ms-auto bg-black px-2 pb-3 pt-3 rounded-start-circle opacity-30">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </div>
-        </button>
+@if (session()->has('suksesuserfeedback'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('suksesuserfeedback') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-</div> --}}
+@endif
 <div class="produk-user container-fluid py-3 px-5 bg-warning-subtle pt-5" id="Product">
     <div class="text-left border-bottom border-warning border-5 text-black w-25 mt-4">
         <h2><strong>PRODUCT</strong></h2>
@@ -383,25 +342,26 @@
 
         </div>
         <div class="col-md-8 bg-warning-subtle rounded p-4">
-            <form>
+            <form action="{{ route('user.feedback') }}" method="POST">
+                @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="inputName" class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control" id="inputName">
+                        <input type="text" name="name" class="form-control" id="inputName">
                     </div>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label fw-bold">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4">
+                        <input type="email" name="email" class="form-control" id="inputEmail4">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputSubject" class="form-label fw-bold">Subject</label>
-                    <input type="text" class="form-control" id="exampleInputSubject"
+                    <input type="text" class="form-control" name="subject" id="exampleInputSubject"
                         aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label fw-bold">Message</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-warning w-100 mt-2"><strong>Submit</strong></button>
             </form>

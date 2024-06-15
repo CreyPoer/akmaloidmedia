@@ -42,6 +42,12 @@
         </button>
     </div>
 </div>
+@if (session()->has('suksesguestfeedback'))
+    <div class="alert alert-success alert-dismissible" role="alert">
+        {{ session('suksesguestfeedback') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="container-fluid py-3 px-5 bg-warning-subtle pt-5" id="Product">
     <div class="text-left border-bottom border-warning border-5 text-black w-25 mt-4">
         <h2><strong>PRODUCT</strong></h2>
@@ -339,25 +345,26 @@
 
         </div>
         <div class="col-md-8 bg-warning-subtle rounded p-4">
-            <form>
+            <form action="{{ route('guest.feedback') }}" method="post">
+                @csrf
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="inputName" class="form-label fw-bold">Name</label>
-                        <input type="text" class="form-control" id="inputName">
+                        <input type="text" name="name" class="form-control" id="inputName">
                     </div>
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label fw-bold">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4">
+                        <input type="email" name="email" class="form-control" id="inputEmail4">
                     </div>
                 </div>
                 <div class="mb-3">
                     <label for="exampleInputSubject" class="form-label fw-bold">Subject</label>
-                    <input type="text" class="form-control" id="exampleInputSubject"
+                    <input type="text" name="subject" class="form-control" id="exampleInputSubject"
                         aria-describedby="emailHelp">
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label fw-bold">Message</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn btn-warning w-100 mt-2"><strong>Submit</strong></button>
             </form>

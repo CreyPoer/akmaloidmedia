@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\DetailPemesanan;
+use App\Models\Pembayaran;
 use App\Models\Pemesanan;
+use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
@@ -31,7 +34,6 @@ class DetailPemesananController extends Controller
             $pemesanan = new Pemesanan();
             $pemesanan->order_code = 'PO-' . strtoupper(Str::random(8));
             $pemesanan->user_id = $request->user_id;
-            $pemesanan->tanggal_pemesanan = now();
             $pemesanan->status_pemesanan = 'Belum Aktif';
             $pemesanan->save();
 
@@ -82,12 +84,15 @@ class DetailPemesananController extends Controller
         if($checkordercode){
             $data = DetailPemesanan::where('order_code', $checkordercode->order_code)->get();
             $jumlah = DetailPemesanan::where('order_code', $checkordercode->order_code)->count('order_code');
+            $pemesanan_id = $checkordercode->id;
         }else{
             $data = "Kosong";
             $jumlah = 0;
+            $pemesanan_id = 0;
         }
         $isicart = $jumlah;
-        return view('user.cart', compact('data','nickname','jumlah','isicart'));
+        $wallets = Wallet::all();
+        return view('user.cart', compact('data','nickname','jumlah','isicart','wallets','pemesanan_id'));
     }
 
     public function create()
@@ -100,15 +105,58 @@ class DetailPemesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $status_pembayaran = "Menunggu Verifikasi";
+
+        $pemesanan = Pemesanan::findOrFail($request->pemesanan_id);
+        $pemesanan->tanggal_pemesanan = now();
+        $pemesanan->total_biaya = $request->total_biaya;
+        $pemesanan->status_pemesanan = 'Menunggu Konfirmasi';
+        $pemesanan->save();
+
+        $order_code = $pemesanan->order_code;
+
+        if ($request->hasFile('bukti_bayar')) {
+            $file = $request->file('bukti_bayar');
+            $fileName = $order_code . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/BuktiBayar', $fileName);
+        }
+
+        $pembayaran = new Pembayaran();
+        $pembayaran->pemesanan_id = $request->pemesanan_id;
+        $pembayaran->wallet_id = $request->wallet_id;
+        $pembayaran->tanggal_bayar = now();
+        $pembayaran->bukti_bayar = str_replace('public', 'storage', $path);
+        $pembayaran->status_pembayaran = $status_pembayaran;
+        $pembayaran->save();
+
+        return redirect('/pelanggan/riwayatpesanan/'.$request->user_id)->with('suksespesanpaket', 'Paket Berhasil di Pesan');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(DetailPemesanan $detailPemesanan)
+    public function show(string $id)
     {
-        //
+        $checkordercode = Pemesanan::where('user_id', $id)
+        ->where('status_pemesanan', 'Belum Aktif')
+        ->first();
+        if($checkordercode){
+            $isicart = DetailPemesanan::where('order_code', $checkordercode->order_code)->count('order_code');
+        }else{
+            $isicart = 0;
+        }
+        $nickname = Str::words(Auth::user()->name, 2, '');
+
+        $user = User::findOrFail($id);
+        $nickname2 = Str::words($user->name, 2, '');
+        $riwayatpesanan = Pemesanan::where('user_id',$id)
+                    ->whereNotIn('status_pemesanan',['Belum Aktif'])
+                    ->get();
+        $jumlah =  Pemesanan::where('user_id',$id)
+        ->whereNotIn('status_pemesanan',['Belum Aktif'])
+        ->count('id');
+        return view('user.riwayatpesanan',compact('user','riwayatpesanan','nickname','isicart','nickname2','jumlah'));
     }
 
     /**
@@ -130,8 +178,13 @@ class DetailPemesananController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DetailPemesanan $detailPemesanan)
+    public function destroy(Request $request)
     {
-        //
+        $data = DetailPemesanan::findOrFail($request->id);
+        $user_id = $request->user_id;
+
+        $data->delete();
+
+        return redirect('/pelanggan/tampilcart/'.$user_id)->with('suksesdeletecart', 'Data Keranjang berhasil dihapus');
     }
 }

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>AKMALOID | Admin</title>
+    <title>@yield('title', 'AKMALOID | Admin')</title>
 
     <!-- Custom fonts for this template-->
     <script src="{{ asset('assets/fontawesome/js/all.js') }}" crossorigin="anonymous"></script>
@@ -103,13 +103,6 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/admin/sb-admin-2.min.js') }}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('js/admin/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('jas/admin/demo/chart-pie-demo.js') }}"></script>
-
 </body>
 
 </html>

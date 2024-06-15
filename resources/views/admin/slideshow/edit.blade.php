@@ -1,5 +1,5 @@
 @extends('layout.admin.main')
-
+@section('title', 'AKMALOID | Slide Show')
 @section('konten-admin')
     <div class="row d-flex justify-content-left">
         <ol class="breadcrumb bg-transparent">
@@ -8,7 +8,7 @@
         </ol>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 fw-bold">Tambah Slide Show</h1>
+        <h1 class="h3 mb-0 text-gray-800 fw-bold"><strong>Edit Slide Show</strong></h1>
     </div>
 
     <div class="card mb-4 bg-warning-subtle border-start border-black border-3">

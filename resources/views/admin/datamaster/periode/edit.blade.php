@@ -1,4 +1,5 @@
 @extends('layout.admin.main')
+@section('title', 'AKMALOID | Periode')
 @section('konten-admin')
     <div class="row d-flex justify-content-left">
         <ol class="breadcrumb bg-transparent">
@@ -8,7 +9,7 @@
         </ol>
     </div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800 fw-bold">Edit Periode</h1>
+        <h1 class="h3 mb-0 text-gray-800 fw-bold"><strong>Edit Periode</strong></h1>
     </div>
 
 
