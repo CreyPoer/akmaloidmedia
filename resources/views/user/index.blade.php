@@ -339,7 +339,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="col-md-8 bg-warning-subtle rounded p-4">
             <form action="{{ route('user.feedback') }}" method="POST">

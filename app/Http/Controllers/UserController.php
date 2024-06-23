@@ -28,7 +28,6 @@ class UserController extends Controller
     public function index(UserDataTable $dataTable,Request $request)
     {
         return $dataTable->with(['role' => $request->input('role')])->render('admin.usermanagement.index');
-        // return $dataTable->render('admin.usermanagement.index');
     }
 
     public function pelanggan()

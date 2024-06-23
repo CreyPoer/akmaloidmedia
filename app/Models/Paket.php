@@ -37,6 +37,4 @@ class Paket extends Model
     {
         return $this->hasMany(DetailPemesanan::class, 'detail_pemesanan_id','id');
     }
-
-
 }

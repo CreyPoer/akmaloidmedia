@@ -22,6 +22,7 @@ class UpdateRequest extends FormRequest
             'password' => 'nullable|string|min:8',
             'gender' => 'required|in:L,P',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'role' => 'required|in:admin,pelanggan',
         ];
     }
 }

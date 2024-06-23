@@ -43,9 +43,9 @@
     {{ $dataTable->scripts() }}
     <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
     <script src="{{ asset('plugins/datatables/datatable.js') }}"></script>
-    <script src="{{ asset('vendor/jszip/dist/jszip.min.js') }}"></script>
-    <script src="{{ asset('vendor/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('vendor/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('vendor/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendor/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendor/pdfmake/vfs_fonts.js') }}"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>

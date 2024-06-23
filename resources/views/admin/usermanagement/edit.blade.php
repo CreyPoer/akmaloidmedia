@@ -92,8 +92,8 @@
                         <label for="InputRole" class="form-label">Role</label>
                         <select class="form-select" name="role" aria-label="Default select example">
                             <option selected>Pilih Role</option>
-                            <option {{ $data->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                            <option {{ $data->role == 'pelanggan' ? 'selected' : '' }}>Pelanggan</option>
+                            <option {{ $data->role == 'admin' ? 'selected' : '' }} value="admin">Admin</option>
+                            <option {{ $data->role == 'pelanggan' ? 'selected' : '' }} value="pelanggan">Pelanggan</option>
                         </select>
                         @error('role')
                             <span class="text-danger">{{ $message }}</span>
